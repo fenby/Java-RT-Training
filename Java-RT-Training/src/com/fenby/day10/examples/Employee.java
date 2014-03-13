@@ -5,7 +5,7 @@
  * All Right Reserved.
  * --------------------------------------------------------------------
  */
-package com.fenby.day10;
+package com.fenby.day10.examples;
 
 public class Employee {
     private String name;
