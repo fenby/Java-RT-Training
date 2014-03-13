@@ -5,7 +5,7 @@
  * All Right Reserved.
  * --------------------------------------------------------------------
  */
-package com.fenby.day10.examples;
+package com.fenby.day10.example02;
 
 public class Salary extends Employee {
     // 年工资

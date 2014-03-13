@@ -5,7 +5,7 @@
  * All Right Reserved.
  * --------------------------------------------------------------------
  */
-package com.fenby.day10.examples;
+package com.fenby.day10.example01;
 
 public class VirtualDemo {
     public static void main(String[] args) {
