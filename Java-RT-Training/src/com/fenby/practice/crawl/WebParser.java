@@ -22,20 +22,27 @@ public abstract class WebParser {
 
     public String getHtmlOutput() {
         StringBuffer sb = new StringBuffer();
-        sb.append("<html>");
-        sb.append("\t<head>");
-        sb.append("\t<title>" + getHeader() + "</title>");
-        sb.append("\t\t<link rel=\"stylesheet\" href=\"http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css\">");
-        sb.append("\t\t<link rel=\"stylesheet\" href=\"http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css\">");
-        sb.append("\t\t<script src=\"http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js\"></script>");
-        sb.append("\t</head>");
-        sb.append("\t<body>");
-        sb.append("\t\t<div class=\"container\">");
-        sb.append("\t\t\t<div class=\"header\"><h1>" + getHeader() + "</h1></div>");
-        sb.append("\t\t\t<div class=\"content\">" + getContent() + "</div>");
-        sb.append("\t\t</div>");
-        sb.append("\t</body>");
-        sb.append("</html>");
+        sb.append("<!DOCTYPE html>\n");
+        sb.append("<html lang=\"en\">\n");
+        sb.append("  <head>\n");
+        sb.append("    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n");
+        sb.append("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
+        sb.append("    <title>" + getHeader() + "</title>\n");
+        sb.append("    <link rel=\"stylesheet\" href=\"http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css\">\n");
+        sb.append("    <link rel=\"stylesheet\" href=\"http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css\">\n");
+        sb.append("    <script src=\"http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js\"></script>\n");
+        sb.append("  </head>\n");
+        sb.append("  <body>\n");
+        sb.append("    <div class=\"container\">\n");
+        sb.append("      <div class=\"row\">\n");
+        sb.append("        <div class=\"col-md-8 col-md-offset-2\"><h1 class=\"text-center\">" + getHeader() + "</h1></div>\n");
+        sb.append("      </div>\n");
+        sb.append("      <div class=\"row\">\n");
+        sb.append("        <div class=\"col-md-8 col-md-offset-2\">" + getContent() + "</div>\n");
+        sb.append("      </div>\n");
+        sb.append("    </div>\n");
+        sb.append("  </body>\n");
+        sb.append("</html>\n");
 
         return sb.toString();
     }

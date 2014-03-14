@@ -5,9 +5,9 @@
  * All Right Reserved.
  * --------------------------------------------------------------------
  */
-package com.fenby.day10.example01;
+package com.fenby.day10.example03;
 
-public class Employee {
+public abstract class Employee {
     // 员工编号
     protected int number;
     // 员工姓名
@@ -37,9 +37,7 @@ public class Employee {
     }
 
     // 计算月薪资
-    public double computePay() {
-        return salary / 12;
-    }
+    public abstract double computePay();
 
     public String toString() {
         return "编号: " + number + ", 姓名: " + name;

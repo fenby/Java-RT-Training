@@ -8,43 +8,40 @@
 package com.fenby.day10.example02;
 
 public abstract class Employee {
-    private String name;
-    private String address;
-    private int number;
+    // 员工编号
+    protected int number;
+    // 员工姓名
+    protected String name;
+    // 员工薪资（年）
+    protected double salary;
 
-    public Employee(String name, String address, int number) {
-        System.out.println("创建一个Employee对象");
-        this.name = name;
-        this.address = address;
+    public Employee(int number, String name) {
+        System.out.println("创建一个Employee对象, 编号：" + number + ", 姓名: " + name);
         this.number = number;
-    }
-
-    public double computePay() {
-        System.out.println("执行computePay()方法");
-        return 0.0;
-    }
-
-    public void mailCheck() {
-        System.out.println("邮寄支票给 " + this.name + " " + this.address);
-    }
-
-    public String toString() {
-        return name + " " + address + " " + number;
+        this.name = name;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String newAddress) {
-        address = newAddress;
-    }
-
     public int getNumber() {
         return number;
+    }
+
+    // 设置年薪资
+    public void setSalary(double newSalary) {
+        if (newSalary >= 0.0) {
+            this.salary = newSalary;
+        }
+    }
+
+    // 计算月薪资
+    public double computePay() {
+        return salary / 12;
+    }
+
+    public String toString() {
+        return "编号: " + number + ", 姓名: " + name;
     }
 }
