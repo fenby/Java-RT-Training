@@ -9,15 +9,17 @@ package com.fenby.practice.crawl.parser;
 
 import java.io.IOException;
 
-public class WebParserU148 extends WebParserBase {
 
-    public WebParserU148(String url) throws IOException {
+public class WebParserHuxiu extends WebParserBase {
+
+    public WebParserHuxiu(String url) throws IOException {
         super(url);
     }
 
+    @Override
     public void parseHtml() {
 
-        this.header = document.select("div.u148content > h1 > a").first().html();
-        this.content = document.select("div.u148content > div.content").first().html();
+        this.header = document.select("div.neirong > h1").first().html();
+        this.content = document.select("div.neirong > table.neirong-box").first().html();
     }
 }

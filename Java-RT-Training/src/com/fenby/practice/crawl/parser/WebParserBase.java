@@ -5,12 +5,23 @@
  * All Right Reserved.
  * --------------------------------------------------------------------
  */
-package com.fenby.practice.crawl;
+package com.fenby.practice.crawl.parser;
 
+import java.io.IOException;
 
-public abstract class WebParser {
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+public abstract class WebParserBase {
+    protected Document document;
     protected String header;
     protected String content;
+
+    public WebParserBase(String url) throws IOException {
+        document = Jsoup.connect(url).get();
+
+        parseHtml();
+    }
 
     public String getHeader() {
         return this.header;
@@ -47,5 +58,5 @@ public abstract class WebParser {
         return sb.toString();
     }
 
-    public abstract void parseHtml(String html);
+    public abstract void parseHtml();
 }
