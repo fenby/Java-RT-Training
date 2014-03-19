@@ -22,7 +22,6 @@ public class GreetingServer  {
 
         try {
             serverSocket = new ServerSocket(port);
-//            serverSocket.setSoTimeout(60000);
 
             while (true) {
                 try {
