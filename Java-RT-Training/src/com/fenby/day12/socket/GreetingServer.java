@@ -15,42 +15,50 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 
 public class GreetingServer  {
-    private ServerSocket serverSocket;
-
-    public GreetingServer(int port) throws IOException {
-        serverSocket = new ServerSocket(port);
-        serverSocket.setSoTimeout(60000);
-    }
-
-    public void process() {
-
-        while (true) {
-            try {
-                System.out.println("服务器监听端口: " + serverSocket.getLocalPort() + "...");
-                Socket server = serverSocket.accept();
-                System.out.println("客户端Socket地址: " + server.getRemoteSocketAddress());
-                DataInputStream in = new DataInputStream(server.getInputStream());
-                System.out.println(in.readUTF());
-                DataOutputStream out = new DataOutputStream(server.getOutputStream());
-                out.writeUTF("感谢访问<" + server.getLocalSocketAddress() + ">, 再见!");
-                server.close();
-            } catch (SocketTimeoutException s) {
-                System.out.println("Socket超时");
-                break;
-            } catch (IOException e) {
-                e.printStackTrace();
-                break;
-            }
-        }
-    }
 
     public static void main(String[] args) {
+        ServerSocket serverSocket = null;
         int port = 6666;
+
         try {
-            GreetingServer greetingServer = new GreetingServer(port);
-            greetingServer.process();
+            serverSocket = new ServerSocket(port);
+//            serverSocket.setSoTimeout(60000);
+
+            while (true) {
+                try {
+                    System.out.println("服务器监听端口: " + serverSocket.getLocalPort() + "...");
+
+                    // 等待客户端请求
+                    Socket server = serverSocket.accept();
+                    System.out.println("客户端Socket地址: " + server.getRemoteSocketAddress());
+
+                    // 读取客户端发送的数据
+                    DataInputStream in = new DataInputStream(server.getInputStream());
+                    System.out.println("[Server:接收数据]: " + in.readUTF());
+
+                    // 将结果返回给客户端
+                    DataOutputStream out = new DataOutputStream(server.getOutputStream());
+                    out.writeUTF("感谢访问<" + server.getLocalSocketAddress() + ">, 再见!");
+
+                    // 关闭Socket
+                    server.close();
+                } catch (SocketTimeoutException s) {
+                    System.out.println("Socket超时");
+                    break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    break;
+                }
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
