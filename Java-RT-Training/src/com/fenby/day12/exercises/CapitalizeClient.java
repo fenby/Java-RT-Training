@@ -43,7 +43,7 @@ public class CapitalizeClient {
                 System.out.println("[客户端发送数据]: " + str);
                 out.println(str);
 
-                if (str.equals(".")) {
+                if (str.equals("end")) {
                     break;
                 }
 

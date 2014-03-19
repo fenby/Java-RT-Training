@@ -38,7 +38,7 @@ public class CapitalizeServer  {
 
                     // 给客户端发送提示信息
                     out.println("你好, 你是第" + clientNumber + "个客户.");
-                    out.println("输入.退出\n");
+                    out.println("输入'end'退出\n");
 
                     // 获取客户端的数据, 逐行处理, 将数据转换为大写后发送给客户端
                     while (true) {
