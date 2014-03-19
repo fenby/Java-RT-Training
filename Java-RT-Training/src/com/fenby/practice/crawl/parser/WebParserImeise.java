@@ -10,8 +10,8 @@ public class WebParserImeise extends WebParserBase {
 
 	@Override
 	public void parseHtml() {
-		// this.title = document.select("div.post-title > h1").first().html();
-//        this.content = document.select("div.post-content").first().html();
+		 this.title = document.select("div.metaRight > h2 > a").first().html();
+        this.content = document.select("div.postContent").first().html();
 	}
 
 }

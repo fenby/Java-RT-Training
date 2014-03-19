@@ -48,7 +48,7 @@ public class WebCrawler {
             webParser = new WebParserU148(urlConfig.getUrl());
         } else if (urlConfig.getCode().equalsIgnoreCase("huxiu")) {
             webParser = new WebParserHuxiu(urlConfig.getUrl());
-        } else if (urlConfig.getCode().equalsIgnoreCase("imeise")) {
+        } else if (urlConfig.getCode().equalsIgnoreCase("meizitu")) {
         	webParser = new WebParserImeise(urlConfig.getUrl());
         }
 
