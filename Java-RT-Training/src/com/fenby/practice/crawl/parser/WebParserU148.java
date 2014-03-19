@@ -17,7 +17,7 @@ public class WebParserU148 extends WebParserBase {
 
     public void parseHtml() {
 
-        this.header = document.select("div.u148content > h1 > a").first().html();
+        this.title = document.select("div.u148content > h1 > a").first().html();
         this.content = document.select("div.u148content > div.content").first().html();
     }
 }

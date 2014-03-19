@@ -19,7 +19,7 @@ public class WebParserHuxiu extends WebParserBase {
     @Override
     public void parseHtml() {
 
-        this.header = document.select("div.neirong > h1").first().html();
+        this.title = document.select("div.neirong > h1").first().html();
         this.content = document.select("div.neirong > table.neirong-box").first().html();
     }
 }
