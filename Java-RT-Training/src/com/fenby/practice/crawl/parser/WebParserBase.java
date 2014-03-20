@@ -20,7 +20,11 @@ public abstract class WebParserBase implements WebParser {
     protected String content;
 
     public WebParserBase(String url) throws IOException {
-        document = Jsoup.connect(url).get();
+//        document = Jsoup.connect(url).get();
+        long started = System.currentTimeMillis();
+        document = Jsoup.connect(url).timeout(10 * 1000).get();
+        long elapse = System.currentTimeMillis() - started;
+        System.out.println("Elapse: " + elapse + " milliseconds");
 
         parseHtml();
     }
