@@ -45,7 +45,7 @@ public class CapitalizeServer  {
                         String input = in.readLine();
                         System.out.println("[服务器接收数据]: " + input);
 
-                        if (input == null || input.equals(".")) {
+                        if (input == null || input.equals("end")) {
                             break;
                         }
 
