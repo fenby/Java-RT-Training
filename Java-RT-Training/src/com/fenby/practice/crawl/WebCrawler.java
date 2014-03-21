@@ -7,59 +7,57 @@
  */
 package com.fenby.practice.crawl;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.fenby.practice.crawl.parser.WebParserBase;
-import com.fenby.practice.crawl.parser.WebParserHuxiu;
-import com.fenby.practice.crawl.parser.WebParserImeise;
-import com.fenby.practice.crawl.parser.WebParserU148;
 import com.fenby.practice.crawl.util.IO;
 
 public class WebCrawler {
 	private static int counter = 0;
 	private static String userDir = null;
+	private static boolean multithreadMode = true;
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
+		long mainThreadStartTime = System.currentTimeMillis();
 
-        userDir = System.getProperty("user.dir");
-        URLConfig[] urlConfigs = IO.readURLConfigFromFile(userDir + "/url_config.list");
-        log("爬虫开始执行...");
+		userDir = System.getProperty("user.dir");
+		URLConfig[] urlConfigs = IO.readURLConfigFromFile(userDir
+				+ "/url_config.list");
 
-        for (URLConfig urlConfig : urlConfigs) {
-            log("处理第" + ++counter + "条记录. 网站[" + urlConfig.getCode() + "]");
+		log("爬虫开始执行...");
 
-            try {
-                process(urlConfig);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+		// 子线程列表
+		List<Thread> list = new ArrayList<Thread> ();
 
-        log("爬虫结束执行...");
-        log("总共处理" + counter + "条记录.");
+		for (URLConfig urlConfig : urlConfigs) {
+			if (multithreadMode) {
+				URLThreadProcessor task = new URLThreadProcessor(urlConfig);
+				Thread thread = new Thread(task);
+				thread.start();
 
-    }
+				list.add(thread);
+			} else {
+				URLProcessor.process(urlConfig);
+			}
+			log("处理第" + ++counter + "条记录. 网站[" + urlConfig.getCode() + "], URL[" + urlConfig.getUrl() + "]");
+		}
 
-    private static void process(URLConfig urlConfig) throws IOException {
+		// 等待全部子线程处理完成后主线程继续执行
+		for (Thread thread : list) {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 
-        WebParserBase webParser = null;
-        if (urlConfig.getCode().equalsIgnoreCase("u148")) {
-            webParser = new WebParserU148(urlConfig.getUrl());
-        } else if (urlConfig.getCode().equalsIgnoreCase("huxiu")) {
-            webParser = new WebParserHuxiu(urlConfig.getUrl());
-        } else if (urlConfig.getCode().equalsIgnoreCase("meizitu")) {
-        	webParser = new WebParserImeise(urlConfig.getUrl());
-        }
+		log("爬虫结束执行...");
+		log("总共处理" + counter + "条记录, 总共耗时 "
+				+ (System.currentTimeMillis() - mainThreadStartTime) + " 毫秒");
 
-        webParser.parseHtml();
+	}
 
-        String outPath = userDir + File.separator + "crawled" + File.separator + urlConfig.getCode();
-        String outFile = urlConfig.getUniqueFilename();
-        IO.writeBytesToFile(webParser.generateHTMLOutput().getBytes(), outPath, outFile);
-    }
-
-    private static void log(String msg) {
-        System.out.println("> " + msg);
-    }
+	private static void log(String msg) {
+		System.out.println("> " + msg);
+	}
 }
