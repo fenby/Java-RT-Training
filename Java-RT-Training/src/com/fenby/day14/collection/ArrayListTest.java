@@ -9,7 +9,7 @@ public class ArrayListTest {
 
 		myList.add("苹果");
 		myList.add("芒果");
-		myList.add("句子");
+		myList.add("橘子");
 		myList.add("葡萄");
 
 		// 在指定位置添加对象
