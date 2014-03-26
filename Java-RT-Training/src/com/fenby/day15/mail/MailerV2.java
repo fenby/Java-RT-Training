@@ -99,7 +99,7 @@ public class MailerV2 {
 		System.out.print("请输入邮件标题: ");
 		mailContent.setSubject(br.readLine());
 
-		System.out.print("请输入邮件内容(在首航中输入quit退出): ");
+		System.out.print("请输入邮件内容(在首行中输入quit退出): ");
 		String content = br.readLine();
 		while (!content.equalsIgnoreCase("quit")) {
 			mailContent.setContent(mailContent.getContent() + content);
